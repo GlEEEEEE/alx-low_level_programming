@@ -3,28 +3,28 @@
 /**
 * main - Entry point
 *
-* Description: Prints the first 98 Fibonacci numbers
-*
 * Return: Always 0 (Success)
 */
-
 int main(void)
 {
-unsigned long int i, num1 = 1, num2 = 2, next;
+unsigned int i, count = 2;
+unsigned long int first = 1, second = 2, next;
 
-printf("%lu, %lu, ", num1, num2);
+printf("%lu, %lu", first, second);
 
-for (i = 3; i <= 98; ++i)
+for (i = 3; i <= 98; i++)
 {
-next = num1 + num2;
-num1 = num2;
-num2 = next;
-
-if (i < 98)
-printf("%lu, ", next);
-else
-printf("%lu\n", next);
+next = first + second;
+first = second;
+second = next;
+if (next > 999999999)
+{
+first /= 10;
+next /= 10;
 }
-
+printf(", %lu", next);
+count += 1;
+}
+putchar('\n');
 return (0);
 }
