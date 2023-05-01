@@ -19,6 +19,48 @@ return (words);
 }
 
 /**
+* get_word_length - Gets the length of a word in a string
+* @str: The string containing the word
+* @start: The index of the start of the word
+*
+* Return: The length of the word
+*/
+int get_word_length(char *str, int start)
+{
+int length = 0;
+
+while (str[start + length] != ' ' && str[start + length] != '\0')
+length++;
+
+return (length);
+}
+
+/**
+* copy_word - Copies a word from a string to a new buffer
+* @str: The string containing the word
+* @start: The index of the start of the word
+* @length: The length of the word
+*
+* Return: A pointer to the new buffer containing the word
+*/
+char *copy_word(char *str, int start, int length)
+{
+char *word;
+int i;
+
+word = malloc((length + 1) * sizeof(char));
+if (word == NULL)
+return (NULL);
+
+for (i = 0; i < length; i++)
+word[i] = str[start + i];
+
+word[length] = '\0';
+
+return (word);
+}
+
+/**
 * strtow - Splits a string into words
 * @str: The string to be split
 *
@@ -27,7 +69,7 @@ return (words);
 char **strtow(char *str)
 {
 char **words;
-int i, j, k, len, wc = 0;
+int i, j, wc, length;
 
 if (str == NULL || str[0] == '\0')
 return (NULL);
@@ -45,24 +87,18 @@ for (i = 0, j = 0; i < wc; i++, j++)
 while (str[j] == ' ')
 j++;
 
-len = 0;
-while (str[j + len] != ' ' && str[j + len] != '\0')
-len++;
+length = get_word_length(str, j);
 
-words[i] = malloc((len + 1) * sizeof(char));
+words[i] = copy_word(str, j, length);
 if (words[i] == NULL)
 {
-for (k = 0; k < i; k++)
-free(words[k]);
+for (j = 0; j < i; j++)
+free(words[j]);
 free(words);
 return (NULL);
 }
 
-for (k = 0; k < len; k++)
-words[i][k] = str[j + k];
-words[i][len] = '\0';
-
-j += len;
+j += length;
 }
 
 words[wc] = NULL;
