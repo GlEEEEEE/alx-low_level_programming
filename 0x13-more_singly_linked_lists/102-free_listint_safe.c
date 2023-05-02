@@ -3,17 +3,17 @@
 #include <stdio.h>
 
 /**
- * free_listint_safe - Frees a linked list (with loop protection)
- * @h: Pointer to a pointer to the head node
+ * free_listint_safe - Frees a listint_t linked list.
+ * @h: A pointer to a pointer to the first node of the list.
  *
- * Return: The size of the freed list
+ * Return: The size of the list that was freed.
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *current, *next;
 	size_t count = 0;
+	listint_t *current, *next;
 
-	if (h == NULL || *h == NULL)
+	if (h == NULL)
 		return (0);
 
 	current = *h;
