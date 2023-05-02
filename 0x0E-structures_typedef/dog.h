@@ -2,29 +2,12 @@
 #define DOG_H
 
 /**
-* struct dog - dog data structure
-* @name: dog name
-* @age: dog age
-* @owner: dog owner
+* struct dog - Dog information
+* @name: Dog's name
+* @age: Dog's age
+* @owner: Dog's owner
 *
-* Description: data structure for dog information
-*/
-struct dog
-{
-char *name;
-float age;
-char *owner;
-};
-
-/* function prototype */
-void init_dog(struct dog *d, char *name, float age, char *owner);
-void print_dog(struct dog *d);
-
-/**
-* struct dog - defines a dog
-* @name: name of the dog
-* @age: age of the dog
-* @owner: owner of the dog
+* Description: struct called "dog" that contains information about dogs
 */
 
 typedef struct dog
@@ -34,9 +17,9 @@ float age;
 char *owner;
 } dog_t;
 
-/* function prototypes */
-void free_dog(dog_t *d);
+void init_dog(dog_t *d, char *name, float age, char *owner);
 void print_dog(dog_t *d);
 dog_t *new_dog(char *name, float age, char *owner);
+void free_dog(dog_t *d);
 
 #endif /* DOG_H */
