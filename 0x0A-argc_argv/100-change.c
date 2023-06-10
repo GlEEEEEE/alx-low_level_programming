@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int calculate_minimum_coins(int cents);
+int get_coin_count(int cents, int coin_value);
+
 /**
 * main - Entry point
 * @argc: Number of command-line arguments
@@ -10,7 +13,7 @@
 */
 int main(int argc, char *argv[])
 {
-int cents, coins = 0;
+int cents, coins;
 
 if (argc != 2)
 {
@@ -26,35 +29,47 @@ printf("0\n");
 return (0);
 }
 
-while (cents > 0)
-{
-if (cents >= 25)
-{
-cents -= 25;
-coins++;
-}
-else if (cents >= 10)
-{
-cents -= 10;
-coins++;
-}
-else if (cents >= 5)
-{
-cents -= 5;
-coins++;
-}
-else if (cents >= 2)
-{
-cents -= 2;
-coins++;
-}
-else
-{
-cents -= 1;
-coins++;
-}
+coins = calculate_minimum_coins(cents);
+printf("%d\n", coins);
+
+return (0);
 }
 
-printf("%d\n", coins);
-return (0);
+/**
+* calculate_minimum_coins - Calculates the minimum number of coins
+* @cents: The amount in cents
+*
+* Return: The minimum number of coins
+*/
+int calculate_minimum_coins(int cents)
+{
+int coins = 0;
+
+coins += get_coin_count(cents, 25);
+coins += get_coin_count(cents, 10);
+coins += get_coin_count(cents, 5);
+coins += get_coin_count(cents, 2);
+coins += get_coin_count(cents, 1);
+
+return (coins);
+}
+
+/**
+* get_coin_count - Calculates the number of coins for a given coin value
+* @cents: The amount in cents
+* @coin_value: The value of the coin
+*
+* Return: The number of coins for the given coin value
+*/
+int get_coin_count(int cents, int coin_value)
+{
+int count = 0;
+
+while (cents >= coin_value)
+{
+cents -= coin_value;
+count++;
+}
+
+return (count);
 }
