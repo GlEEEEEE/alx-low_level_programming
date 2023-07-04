@@ -1,5 +1,5 @@
 section .data
-    format db 'Hello, Holberton', 0xA, 0
+    message db 'Hello, Holberton', 0xA, 0
 
 section .text
     global main
@@ -7,12 +7,14 @@ section .text
 extern printf
 
 main:
-    ; call printf to print the string
-    push format
+    ; push the address of the format string onto the stack
+    push message
+    ; call printf
     call printf
+    ; clean up the stack
     add esp, 4
 
     ; return 0
-    xor eax, eax
+    mov eax, 0
     ret
 
