@@ -1,20 +1,19 @@
 section .data
-    message db 'Hello, Holberton', 0xA, 0
+    hello db 'Hello, Holberton',0xA
 
 section .text
     global main
 
-extern printf
-
 main:
-    ; push the address of the format string onto the stack
-    push message
-    ; call printf
-    call printf
-    ; clean up the stack
-    add esp, 4
+    ; write message to stdout
+    mov eax, 1        ; system call number for write
+    mov edi, 1        ; file descriptor for stdout
+    mov rsi, hello    ; address of the message
+    mov edx, 18       ; length of the message
+    syscall
 
-    ; return 0
-    mov eax, 0
-    ret
+    ; exit the program
+    mov eax, 60       ; system call number for exit
+    xor edi, edi      ; exit status 0
+    syscall
 
